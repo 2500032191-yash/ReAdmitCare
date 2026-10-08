@@ -40,3 +40,6 @@ The project includes tree-based models for readmission and hospital stay predict
 
 ## Boosting models
 The project includes boosting models for predicting readmission risk and hospital stay.
+
+## Predictions
+The prediction page estimates readmission risk and hospital stay duration from patient inputs.
