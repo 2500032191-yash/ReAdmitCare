@@ -43,3 +43,6 @@ The project includes boosting models for predicting readmission risk and hospita
 
 ## Predictions
 The prediction page estimates readmission risk and hospital stay duration from patient inputs.
+
+## Model evaluation
+The evaluation module reviews prediction performance using metrics and comparison results.
