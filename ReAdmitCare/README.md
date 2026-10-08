@@ -61,3 +61,6 @@ The project includes additional regression approaches for comparing hospital sta
 
 ## Advanced boosting
 The advanced boosting module explores additional boosted models for prediction.
+
+## Data loading
+The data loading module reads the project dataset for analysis and model workflows.
