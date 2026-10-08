@@ -52,3 +52,6 @@ The training module fits the project's prediction models using the prepared data
 
 ## Model improvement
 The improvement module experiments with model settings to improve prediction performance.
+
+## Additional classification models
+The project includes additional classifiers for comparing readmission prediction approaches.
