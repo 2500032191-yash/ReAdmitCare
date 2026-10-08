@@ -55,3 +55,6 @@ The improvement module experiments with model settings to improve prediction per
 
 ## Additional classification models
 The project includes additional classifiers for comparing readmission prediction approaches.
+
+## Additional regression models
+The project includes additional regression approaches for comparing hospital stay predictions.
