@@ -58,3 +58,6 @@ The project includes additional classifiers for comparing readmission prediction
 
 ## Additional regression models
 The project includes additional regression approaches for comparing hospital stay predictions.
+
+## Advanced boosting
+The advanced boosting module explores additional boosted models for prediction.
