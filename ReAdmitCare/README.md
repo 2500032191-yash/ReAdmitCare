@@ -22,3 +22,6 @@ The EDA module explores the dataset and creates charts to help examine readmissi
 
 ## Data preprocessing
 The preprocessing module prepares the data for analysis and model training.
+
+## Classification
+The classification module estimates readmission risk using classification models.
