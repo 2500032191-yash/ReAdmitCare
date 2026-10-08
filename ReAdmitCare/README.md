@@ -28,3 +28,6 @@ The classification module estimates readmission risk using classification models
 
 ## Regression
 The regression module estimates hospital stay duration using regression models.
+
+## Model comparison
+The project compares model results to help evaluate their performance.
