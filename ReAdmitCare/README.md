@@ -49,3 +49,6 @@ The evaluation module reviews prediction performance using metrics and compariso
 
 ## Model training
 The training module fits the project's prediction models using the prepared dataset.
+
+## Model improvement
+The improvement module experiments with model settings to improve prediction performance.
