@@ -1,0 +1,9 @@
+@'
+.venv/
+**/.venv/
+.idea/
+**/.idea/
+__pycache__/
+*.py[cod]
+'@ | Set-Content -Encoding utf8 .gitignoreReAdmitCare/dataset/
+ReAdmitCare/models/random_forest.pkl

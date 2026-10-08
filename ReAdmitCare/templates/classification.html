@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Classification | ReAdmitCare</title>
+
+<style>
+
+* {
+box-sizing:border-box;
+}
+
+body {
+margin:0;
+font-family:Arial,sans-serif;
+background:#f4f7fb;
+color:#1f2937;
+}
+
+header {
+background:linear-gradient(135deg,#123b5d,#176b87);
+color:white;
+padding:22px 6%;
+}
+
+.brand {
+font-size:28px;
+font-weight:bold;
+}
+
+.subtitle {
+margin-top:5px;
+}
+
+nav {
+margin-top:20px;
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+}
+
+nav a {
+color:white;
+text-decoration:none;
+padding:9px 13px;
+border-radius:7px;
+font-size:13px;
+}
+
+nav a:hover,
+nav a.active {
+background:rgba(255,255,255,0.2);
+}
+
+.container {
+width:90%;
+max-width:1250px;
+margin:35px auto;
+}
+
+.card {
+background:white;
+padding:28px;
+border-radius:15px;
+margin-bottom:25px;
+box-shadow:0 4px 15px rgba(0,0,0,0.06);
+}
+
+h1 {
+color:#123b5d;
+}
+
+h2 {
+color:#176b87;
+}
+
+table {
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+th {
+background:#123b5d;
+color:white;
+padding:13px;
+}
+
+td {
+padding:12px;
+border-bottom:1px solid #ddd;
+text-align:center;
+}
+
+tr:hover {
+background:#f5f9fc;
+}
+
+.note {
+background:#fff8e6;
+padding:18px;
+border-left:5px solid #e0a800;
+border-radius:8px;
+}
+
+img {
+max-width:100%;
+border-radius:10px;
+}
+
+footer {
+margin-top:50px;
+padding:25px;
+text-align:center;
+background:#123b5d;
+color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="brand">ReAdmitCare</div>
+
+<div class="subtitle">
+Hospital Readmission Prediction System
+</div>
+
+<nav>
+
+<a href="/">Home</a>
+<a href="/eda">EDA</a>
+<a href="/preprocessing">Preprocessing</a>
+<a href="/regression">Regression</a>
+<a href="/classification" class="active">Classification</a>
+<a href="/tree-models">Tree Models</a>
+<a href="/boosting">Boosting</a>
+<a href="/advanced-boosting">Advanced Boosting</a>
+<a href="/model-comparison">Model Comparison</a>
+<a href="/predict">Prediction</a>
+
+</nav>
+
+</header>
+
+
+<div class="container">
+
+<div class="card">
+
+<h1>Classification Models</h1>
+
+<p>
+The classification task predicts whether a patient is at
+risk of <b>30-day hospital readmission</b>.
+</p>
+
+<p>
+The dataset is highly imbalanced, so recall and F1-score
+are especially important evaluation metrics.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>Classification Model Comparison</h2>
+
+<table>
+
+<tr>
+
+<th>Model</th>
+<th>Accuracy</th>
+<th>Precision</th>
+<th>Recall</th>
+<th>F1</th>
+<th>ROC-AUC</th>
+
+</tr>
+
+
+<tr>
+<td>Logistic Regression</td>
+<td>64.45%</td>
+<td>16.72%</td>
+<td>54.91%</td>
+<td>25.63%</td>
+<td>64.20%</td>
+</tr>
+
+
+<tr>
+<td>Random Forest</td>
+<td>88.78%</td>
+<td>46.56%</td>
+<td>3.87%</td>
+<td>7.15%</td>
+<td>65.73%</td>
+</tr>
+
+
+<tr>
+<td>XGBoost</td>
+<td>88.88%</td>
+<td>59.09%</td>
+<td>1.14%</td>
+<td>2.25%</td>
+<td><b>68.73%</b></td>
+</tr>
+
+
+<tr>
+<td>Improved XGBoost</td>
+<td>N/A</td>
+<td>18.22%</td>
+<td>60.50%</td>
+<td><b>28.01%</b></td>
+<td>N/A</td>
+</tr>
+
+
+<tr>
+<td>Decision Tree</td>
+<td>61.12%</td>
+<td>16.74%</td>
+<td><b>62.53%</b></td>
+<td>26.41%</td>
+<td>65.49%</td>
+</tr>
+
+</table>
+
+</div>
+
+
+<div class="card">
+
+<h2>Classification Evaluation</h2>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:25px;">
+
+<div>
+<h3>Confusion Matrix</h3>
+
+<img src="{{ url_for('static', filename='images/confusion_matrix.png') }}">
+
+</div>
+
+
+<div>
+<h3>ROC Curve</h3>
+
+<img src="{{ url_for('static', filename='images/roc_curve.png') }}">
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="note">
+
+<b>Important:</b>
+
+<p>
+Because the dataset contains many more non-readmitted
+patients than readmitted patients, accuracy alone can be
+misleading.
+</p>
+
+<p>
+For this reason, ReAdmitCare considers recall, precision,
+F1-score and ROC-AUC when evaluating classification models.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<footer>
+
+ReAdmitCare | Hospital Readmission Prediction System
+
+</footer>
+
+</body>
+
+</html>

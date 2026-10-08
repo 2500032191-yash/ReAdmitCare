@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ReAdmitCare | AI Hospital Readmission Prediction</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        header {
+            background: linear-gradient(135deg, #0f4c81, #2563a6);
+            color: white;
+            padding: 28px 7%;
+        }
+
+        .header-content {
+            max-width: 1250px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .brand h1 {
+            font-size: 34px;
+            margin-bottom: 5px;
+        }
+
+        .brand p {
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        .header-badge {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.25);
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 14px;
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================== */
+
+        nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1250px;
+            margin: auto;
+            padding: 0 7%;
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #374151;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 16px 5px;
+        }
+
+        nav a:hover {
+            color: #2563a6;
+        }
+
+        /* =========================
+           MAIN
+        ========================== */
+
+        main {
+            max-width: 1250px;
+            margin: 35px auto;
+            padding: 0 25px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 26px;
+            color: #123d63;
+            margin-bottom: 8px;
+        }
+
+        .section-description {
+            color: #6b7280;
+            margin-bottom: 22px;
+        }
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .hero {
+            background: white;
+            border-radius: 18px;
+            padding: 35px;
+            margin-bottom: 35px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+        }
+
+        .hero h2 {
+            font-size: 30px;
+            color: #123d63;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            color: #5b6470;
+            max-width: 850px;
+        }
+
+        .hero-buttons {
+            margin-top: 25px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .btn-primary {
+            background: #2563a6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #174f85;
+        }
+
+        .btn-secondary {
+            background: #e8f1fa;
+            color: #175487;
+        }
+
+        .btn-secondary:hover {
+            background: #d9e9f7;
+        }
+
+        /* =========================
+           STAT CARDS
+        ========================== */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 35px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border-top: 4px solid #2563a6;
+        }
+
+        .stat-card h3 {
+            font-size: 28px;
+            color: #123d63;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* =========================
+           CARDS
+        ========================== */
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .card h3 {
+            color: #174f85;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #606b78;
+            font-size: 14px;
+        }
+
+        /* =========================
+           PIPELINE
+        ========================== */
+
+        .pipeline {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+
+        .pipeline-step {
+            background: white;
+            padding: 20px 12px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+            font-weight: bold;
+            color: #174f85;
+        }
+
+        .pipeline-number {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #2563a6;
+            color: white;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* =========================
+           TABLE
+        ========================== */
+
+        .table-container {
+            background: white;
+            border-radius: 15px;
+            overflow-x: auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        th {
+            background: #123d63;
+            color: white;
+            padding: 14px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 13px;
+            text-align: center;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        tr:hover td {
+            background: #f7fafc;
+        }
+
+        .best {
+            font-weight: bold;
+            color: #137333;
+        }
+
+        /* =========================
+           MODEL CARDS
+        ========================== */
+
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .model-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border-left: 5px solid #2563a6;
+        }
+
+        .model-card h3 {
+            color: #123d63;
+            margin-bottom: 15px;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            padding: 7px 0;
+            border-bottom: 1px solid #edf0f3;
+            font-size: 14px;
+        }
+
+        .metric:last-child {
+            border-bottom: none;
+        }
+
+        .metric strong {
+            color: #174f85;
+        }
+
+        /* =========================
+           GRAPH GRID
+        ========================== */
+
+        .graph-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .chart-card h3 {
+            color: #174f85;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .chart-card img {
+            width: 100%;
+            max-height: 450px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        /* =========================
+           FEATURE IMPORTANCE
+        ========================== */
+
+        .feature-section {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+        }
+
+        .feature-image {
+            width: 100%;
+            max-width: 1000px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 10px;
+        }
+
+        .info-box {
+            background: #eef6ff;
+            border-left: 5px solid #2563a6;
+            padding: 18px 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .info-box h3 {
+            color: #174f85;
+            margin-bottom: 7px;
+        }
+
+        .info-box p {
+            color: #4b5563;
+        }
+
+        /* =========================
+           OUTCOME
+        ========================== */
+
+        .outcome {
+            background: linear-gradient(135deg, #123d63, #2563a6);
+            color: white;
+            border-radius: 18px;
+            padding: 35px;
+        }
+
+        .outcome h2 {
+            margin-bottom: 15px;
+        }
+
+        .outcome ul {
+            margin-left: 22px;
+        }
+
+        .outcome li {
+            margin-bottom: 8px;
+        }
+
+        /* =========================
+           WARNING
+        ========================== */
+
+        .warning {
+            background: #fff8e6;
+            border-left: 5px solid #e5a400;
+            padding: 18px 20px;
+            border-radius: 8px;
+            margin-top: 25px;
+            color: #6b5200;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            background: #123d63;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin: 4px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 1000px) {
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .card-grid,
+            .model-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pipeline {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .stats-grid,
+            .card-grid,
+            .model-grid,
+            .graph-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pipeline {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero {
+                padding: 25px;
+            }
+
+            .hero h2 {
+                font-size: 24px;
+            }
+
+            .nav-container {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
+<header>
+
+    <div class="header-content">
+
+        <div class="brand">
+            <h1>🩺 ReAdmitCare</h1>
+            <p>AI-Based Hospital Readmission & Stay Prediction System</p>
+        </div>
+
+        <div class="header-badge">
+            Machine Learning • Healthcare Analytics
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     NAVIGATION
+====================================================== -->
+
+<nav>
+
+    <div class="nav-container">
+
+        <a href="#overview">Overview</a>
+
+        <a href="#pipeline">ML Pipeline</a>
+
+        <a href="#eda">EDA</a>
+
+        <a href="#classification">Classification</a>
+
+        <a href="#regression">Regression</a>
+
+        <a href="#evaluation">Evaluation</a>
+
+        <a href="#features">Feature Importance</a>
+
+        <a href="/predict">Predict</a>
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     MAIN
+====================================================== -->
+
+<main>
+
+
+<!-- =====================================================
+     HERO
+====================================================== -->
+
+<section class="hero" id="overview">
+
+    <h2>Hospital Readmission Prediction Dashboard</h2>
+
+    <p>
+        ReAdmitCare is a machine learning based academic project
+        designed to analyze hospital encounter data and estimate
+        the risk of 30-day readmission while also predicting the
+        expected duration of hospital stay.
+    </p>
+
+    <div class="hero-buttons">
+
+        <a href="/predict" class="btn btn-primary">
+            🔮 Try Prediction
+        </a>
+
+        <a href="#classification" class="btn btn-secondary">
+            📊 View Model Results
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DATASET STATISTICS
+====================================================== -->
+
+<section class="section">
+
+    <h2 class="section-title">📊 Dataset Overview</h2>
+
+    <p class="section-description">
+        Diabetes 130-US Hospitals dataset containing hospital
+        encounters and clinical information.
+    </p>
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <h3>{{ total_patients }}</h3>
+            <p>Total Patient Encounters</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>{{ readmitted }}</h3>
+            <p>30-Day Readmissions</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>{{ not_readmitted }}</h3>
+            <p>Not Readmitted Within 30 Days</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>45</h3>
+            <p>Preprocessed Columns</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROJECT FEATURES
+====================================================== -->
+
+<section class="section">
+
+    <h2 class="section-title">🎯 Project Objectives</h2>
+
+    <div class="card-grid">
+
+        <div class="card">
+            <h3>30-Day Readmission</h3>
+
+            <p>
+                Use machine learning classification models to
+                estimate whether a patient is likely to be
+                readmitted within 30 days.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Hospital Stay Prediction</h3>
+
+            <p>
+                Regression models estimate the expected number
+                of days a patient may remain in the hospital.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Healthcare Analytics</h3>
+
+            <p>
+                Explore clinical and hospital encounter patterns
+                using data preprocessing, visualization and
+                machine learning.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ML PIPELINE
+====================================================== -->
+
+<section class="section" id="pipeline">
+
+    <h2 class="section-title">⚙️ Machine Learning Pipeline</h2>
+
+    <p class="section-description">
+        The system follows a complete machine learning workflow.
+    </p>
+
+    <div class="pipeline">
+
+        <div class="pipeline-step">
+            <div class="pipeline-number">1</div>
+            Data Collection
+        </div>
+
+        <div class="pipeline-step">
+            <div class="pipeline-number">2</div>
+            Data Preprocessing
+        </div>
+
+        <div class="pipeline-step">
+            <div class="pipeline-number">3</div>
+            Exploratory Analysis
+        </div>
+
+        <div class="pipeline-step">
+            <div class="pipeline-number">4</div>
+            Model Training
+        </div>
+
+        <div class="pipeline-step">
+            <div class="pipeline-number">5</div>
+            Prediction & Evaluation
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PREPROCESSING
+====================================================== -->
+
+<section class="section">
+
+    <h2 class="section-title">🧹 Data Preprocessing</h2>
+
+    <div class="card-grid">
+
+        <div class="card">
+
+            <h3>Missing Values</h3>
+
+            <p>
+                Missing values represented by "?" were converted
+                and handled using median imputation for numerical
+                variables and an "Unknown" category for categorical
+                variables.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Feature Removal</h3>
+
+            <p>
+                Identifier and high-missing-value columns such as
+                encounter_id, patient_nbr, weight, payer_code and
+                medical_specialty were removed.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Target Encoding</h3>
+
+            <p>
+                Readmission values were converted into a binary
+                classification target: 1 for readmission within
+                30 days and 0 otherwise.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     EDA
+====================================================== -->
+
+<section class="section" id="eda">
+
+    <h2 class="section-title">📈 Exploratory Data Analysis</h2>
+
+    <p class="section-description">
+        Visual analysis of important patient and hospital
+        encounter characteristics.
+    </p>
+
+    <div class="graph-grid">
+
+        <div class="chart-card">
+
+            <h3>Readmission Distribution</h3>
+
+            <img
+                src="{{ url_for('static', filename='images/readmission_distribution.png') }}"
+                alt="Readmission Distribution"
+            >
+
+        </div>
+
+
+        <div class="chart-card">
+
+            <h3>Readmission vs Time in Hospital</h3>
+
+            <img
+                src="{{ url_for('static', filename='images/readmission_vs_time.png') }}"
+                alt="Readmission vs Time"
+            >
+
+        </div>
+
+
+        <div class="chart-card">
+
+            <h3>Age Distribution</h3>
+
+            <img
+                src="{{ url_for('static', filename='images/age_distribution.png') }}"
+                alt="Age Distribution"
+            >
+
+        </div>
+
+
+        <div class="chart-card">
+
+            <h3>Time in Hospital</h3>
+
+            <img
+                src="{{ url_for('static', filename='images/time_in_hospital.png') }}"
+                alt="Time in Hospital"
+            >
+
+        </div>
+
+
+        <div class="chart-card">
+
+            <h3>A1C Test Results</h3>
+
+            <img
+                src="{{ url_for('static', filename='images/a1c_results.png') }}"
+                alt="A1C Results"
+            >
+
+        </div>
+
+
+        <div class="chart-card">
+
+            <h3>Diabetes Medication</h3>
+
+            <img
+                src="{{ url_for('static', filename='images/diabetes_medication.png') }}"
+                alt="Diabetes Medication"
+            >
+
+        </div>
+
+
+        <div class="chart-card">
+
+            <h3>Medication Distribution</h3>
+
+            <img
+                src="{{ url_for('static', filename='images/medications_distribution.png') }}"
+                alt="Medication Distribution"
+            >
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CLASSIFICATION MODELS
+====================================================== -->
+
+<section class="section" id="classification">
+
+    <h2 class="section-title">🤖 Classification Model Comparison</h2>
+
+    <p class="section-description">
+        Classification models estimate the risk of 30-day hospital
+        readmission.
+    </p>
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Model</th>
+
+                    <th>Accuracy</th>
+
+                    <th>Precision</th>
+
+                    <th>Recall</th>
+
+                    <th>F1 Score</th>
+
+                    <th>ROC-AUC</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>Logistic Regression</td>
+
+                    <td>64.45%</td>
+
+                    <td>16.72%</td>
+
+                    <td>54.91%</td>
+
+                    <td>25.63%</td>
+
+                    <td>64.20%</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Random Forest</td>
+
+                    <td>88.78%</td>
+
+                    <td>46.56%</td>
+
+                    <td>3.87%</td>
+
+                    <td>7.15%</td>
+
+                    <td>65.73%</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>XGBoost</td>
+
+                    <td>88.88%</td>
+
+                    <td>59.09%</td>
+
+                    <td>1.14%</td>
+
+                    <td>2.25%</td>
+
+                    <td class="best">68.73%</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Improved XGBoost</td>
+
+                    <td>N/A</td>
+
+                    <td>18.22%</td>
+
+                    <td>60.50%</td>
+
+                    <td class="best">28.01%</td>
+
+                    <td>N/A</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Decision Tree</td>
+
+                    <td>61.12%</td>
+
+                    <td>16.74%</td>
+
+                    <td class="best">62.53%</td>
+
+                    <td>26.41%</td>
+
+                    <td>65.49%</td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CLASSIFICATION HIGHLIGHTS
+====================================================== -->
+
+<section class="section">
+
+    <h2 class="section-title">🏆 Classification Highlights</h2>
+
+    <div class="model-grid">
+
+        <div class="model-card">
+
+            <h3>Best ROC-AUC</h3>
+
+            <div class="metric">
+
+                <span>Model</span>
+
+                <strong>XGBoost</strong>
+
+            </div>
+
+            <div class="metric">
+
+                <span>ROC-AUC</span>
+
+                <strong>68.73%</strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="model-card">
+
+            <h3>Best Recall</h3>
+
+            <div class="metric">
+
+                <span>Model</span>
+
+                <strong>Decision Tree</strong>
+
+            </div>
+
+            <div class="metric">
+
+                <span>Recall</span>
+
+                <strong>62.53%</strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="model-card">
+
+            <h3>Best F1 Score</h3>
+
+            <div class="metric">
+
+                <span>Model</span>
+
+                <strong>Improved XGBoost</strong>
+
+            </div>
+
+            <div class="metric">
+
+                <span>F1 Score</span>
+
+                <strong>28.01%</strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REGRESSION
+====================================================== -->
+
+<section class="section" id="regression">
+
+    <h2 class="section-title">📐 Hospital Stay Regression</h2>
+
+    <p class="section-description">
+        Regression models predict the expected duration of hospital stay.
+    </p>
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Model</th>
+
+                    <th>MAE</th>
+
+                    <th>RMSE</th>
+
+                    <th>R²</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>Random Forest Regression</td>
+
+                    <td class="best">1.6890</td>
+
+                    <td>2.2558</td>
+
+                    <td>0.4154</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Linear Regression</td>
+
+                    <td>1.7113</td>
+
+                    <td>2.2583</td>
+
+                    <td>0.4141</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Ridge Regression</td>
+
+                    <td>1.7062</td>
+
+                    <td class="best">2.2512</td>
+
+                    <td class="best">0.4178</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Lasso Regression</td>
+
+                    <td>1.7835</td>
+
+                    <td>2.3503</td>
+
+                    <td>0.3653</td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REGRESSION HIGHLIGHTS
+====================================================== -->
+
+<section class="section">
+
+    <div class="model-grid">
+
+        <div class="model-card">
+
+            <h3>Best MAE</h3>
+
+            <div class="metric">
+
+                <span>Model</span>
+
+                <strong>Random Forest</strong>
+
+            </div>
+
+            <div class="metric">
+
+                <span>MAE</span>
+
+                <strong>1.6890 days</strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="model-card">
+
+            <h3>Best RMSE</h3>
+
+            <div class="metric">
+
+                <span>Model</span>
+
+                <strong>Ridge</strong>
+
+            </div>
+
+            <div class="metric">
+
+                <span>RMSE</span>
+
+                <strong>2.2512</strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="model-card">
+
+            <h3>Best R²</h3>
+
+            <div class="metric">
+
+                <span>Model</span>
+
+                <strong>Ridge</strong>
+
+            </div>
+
+            <div class="metric">
+
+                <span>R²</span>
+
+                <strong>0.4178</strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MODEL EVALUATION
+====================================================== -->
+
+<section class="section" id="evaluation">
+
+    <h2 class="section-title">📊 Model Evaluation</h2>
+
+    <p class="section-description">
+        Visual evaluation of classification and regression performance.
+    </p>
+
+    <div class="graph-grid">
+
+        <div class="chart-card">
+
+            <h3>Confusion Matrix</h3>
+
+            <img
+                src="{{ url_for('static', filename='images/confusion_matrix.png') }}"
+                alt="Confusion Matrix"
+            >
+
+        </div>
+
+
+        <div class="chart-card">
+
+            <h3>ROC Curve</h3>
+
+            <img
+                src="{{ url_for('static', filename='images/roc_curve.png') }}"
+                alt="ROC Curve"
+            >
+
+        </div>
+
+
+        <div class="chart-card">
+
+            <h3>Actual vs Predicted Hospital Stay</h3>
+
+            <img
+                src="{{ url_for('static', filename='images/actual_vs_predicted.png') }}"
+                alt="Actual vs Predicted"
+            >
+
+        </div>
+
+
+        <div class="chart-card">
+
+            <h3>Regression Errors</h3>
+
+            <img
+                src="{{ url_for('static', filename='images/regression_errors.png') }}"
+                alt="Regression Errors"
+            >
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FEATURE IMPORTANCE
+====================================================== -->
+
+<section class="section" id="features">
+
+    <div class="feature-section">
+
+        <h2 class="section-title">
+            🔍 Feature Importance Analysis
+        </h2>
+
+        <p class="section-description">
+
+            The XGBoost model identifies the processed features that
+            contribute most to 30-day readmission prediction.
+
+        </p>
+
+        <img
+            class="feature-image"
+            src="{{ url_for('static', filename='images/feature_importance.png') }}"
+            alt="Top 20 Feature Importance"
+        >
+
+        <div class="info-box">
+
+            <h3>💡 Key Finding</h3>
+
+            <p>
+
+                The most influential feature in the trained XGBoost model
+                is <strong>number_inpatient</strong>, representing previous
+                inpatient visits. This indicates that previous hospital
+                utilization is an important factor associated with
+                readmission risk.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FINAL PROJECT OUTCOME
+====================================================== -->
+
+<section class="section">
+
+    <div class="outcome">
+
+        <h2>🚀 Project Outcome</h2>
+
+        <ul>
+
+            <li>
+                Developed an end-to-end healthcare machine learning system.
+            </li>
+
+            <li>
+                Processed more than 100,000 hospital encounter records.
+            </li>
+
+            <li>
+                Built multiple classification models for 30-day readmission
+                prediction.
+            </li>
+
+            <li>
+                Built multiple regression models for hospital stay prediction.
+            </li>
+
+            <li>
+                Compared model performance using Accuracy, Precision,
+                Recall, F1 Score and ROC-AUC.
+            </li>
+
+            <li>
+                Evaluated regression models using MAE, RMSE and R².
+            </li>
+
+            <li>
+                Created visual analytics and feature importance analysis.
+            </li>
+
+            <li>
+                Integrated the trained models into a Flask web application.
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PREDICTION SECTION
+====================================================== -->
+
+<section class="section">
+
+    <div class="hero">
+
+        <h2>🔮 Try the Prediction System</h2>
+
+        <p>
+
+            Enter patient and hospital encounter information to obtain
+            an estimated 30-day readmission risk and predicted hospital
+            stay.
+
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="/predict" class="btn btn-primary">
+                Start Prediction
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DISCLAIMER
+====================================================== -->
+
+<section class="section">
+
+    <div class="warning">
+
+        <strong>⚠️ Academic Project Disclaimer</strong>
+
+        <p>
+
+            ReAdmitCare is developed for academic and demonstration
+            purposes only. The predictions are machine learning estimates
+            and should not be considered medical diagnosis, clinical
+            advice, or a replacement for professional healthcare decisions.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
+<footer>
+
+    <p><strong>🩺 ReAdmitCare</strong></p>
+
+    <p>
+        AI-Based Hospital Readmission & Stay Prediction System
+    </p>
+
+    <p>
+        Academic Machine Learning Project
+    </p>
+
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+Model,Type,MAE,RMSE,R2
+Random Forest Regression,Regression,1.689,2.2558,0.4154
+Linear Regression,Regression,1.7113,2.2583,0.4141
+Ridge Regression,Regression,1.7062,2.2512,0.4178
+Lasso Regression,Regression,1.7835,2.3503,0.3653

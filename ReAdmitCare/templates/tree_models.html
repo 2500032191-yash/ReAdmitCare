@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tree Models | ReAdmitCare</title>
+
+<style>
+
+* {
+box-sizing:border-box;
+}
+
+body {
+margin:0;
+font-family:Arial,sans-serif;
+background:#f4f7fb;
+color:#1f2937;
+}
+
+header {
+background:linear-gradient(135deg,#123b5d,#176b87);
+color:white;
+padding:22px 6%;
+}
+
+.brand {
+font-size:28px;
+font-weight:bold;
+}
+
+nav {
+margin-top:20px;
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+}
+
+nav a {
+color:white;
+text-decoration:none;
+padding:9px 13px;
+border-radius:7px;
+font-size:13px;
+}
+
+nav a:hover,
+nav a.active {
+background:rgba(255,255,255,0.2);
+}
+
+.container {
+width:88%;
+max-width:1100px;
+margin:35px auto;
+}
+
+.card {
+background:white;
+padding:28px;
+border-radius:15px;
+margin-bottom:25px;
+box-shadow:0 4px 15px rgba(0,0,0,0.06);
+}
+
+h1 {
+color:#123b5d;
+}
+
+h2 {
+color:#176b87;
+}
+
+.model {
+padding:20px;
+background:#f8fafc;
+border-left:5px solid #176b87;
+margin:15px 0;
+border-radius:8px;
+}
+
+footer {
+margin-top:50px;
+padding:25px;
+text-align:center;
+background:#123b5d;
+color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="brand">ReAdmitCare</div>
+
+<p>Hospital Readmission Prediction System</p>
+
+<nav>
+
+<a href="/">Home</a>
+<a href="/eda">EDA</a>
+<a href="/preprocessing">Preprocessing</a>
+<a href="/regression">Regression</a>
+<a href="/classification">Classification</a>
+<a href="/tree-models" class="active">Tree Models</a>
+<a href="/boosting">Boosting</a>
+<a href="/advanced-boosting">Advanced Boosting</a>
+<a href="/model-comparison">Model Comparison</a>
+<a href="/predict">Prediction</a>
+
+</nav>
+
+</header>
+
+
+<div class="container">
+
+<div class="card">
+
+<h1>Tree-Based Models</h1>
+
+<p>
+Tree-based algorithms split data according to feature
+conditions to create predictions.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="model">
+
+<h2>Decision Tree</h2>
+
+<p>
+The Decision Tree classifier achieved a recall of
+<b>62.53%</b> and an F1-score of <b>26.41%</b>.
+</p>
+
+</div>
+
+
+<div class="model">
+
+<h2>Random Forest</h2>
+
+<p>
+Random Forest combines multiple decision trees to
+improve generalization and prediction stability.
+</p>
+
+<p>
+Accuracy: <b>88.78%</b>
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+ReAdmitCare | Hospital Readmission Prediction System
+
+</footer>
+
+</body>
+
+</html>
