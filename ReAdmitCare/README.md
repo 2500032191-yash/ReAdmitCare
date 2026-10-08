@@ -25,3 +25,6 @@ The preprocessing module prepares the data for analysis and model training.
 
 ## Classification
 The classification module estimates readmission risk using classification models.
+
+## Regression
+The regression module estimates hospital stay duration using regression models.
