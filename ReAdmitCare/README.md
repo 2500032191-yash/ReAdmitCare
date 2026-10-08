@@ -37,3 +37,6 @@ The feature importance module shows which input variables contribute most to the
 
 ## Tree models
 The project includes tree-based models for readmission and hospital stay prediction.
+
+## Boosting models
+The project includes boosting models for predicting readmission risk and hospital stay.
