@@ -34,3 +34,6 @@ The project compares model results to help evaluate their performance.
 
 ## Feature importance
 The feature importance module shows which input variables contribute most to the model results.
+
+## Tree models
+The project includes tree-based models for readmission and hospital stay prediction.
