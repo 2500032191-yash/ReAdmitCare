@@ -19,3 +19,6 @@ From the ReAdmitCare project folder, activate the virtual environment and start 
 
 ## Exploratory data analysis (EDA)
 The EDA module explores the dataset and creates charts to help examine readmission patterns and patient attributes.
+
+## Data preprocessing
+The preprocessing module prepares the data for analysis and model training.
