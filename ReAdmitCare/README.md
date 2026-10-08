@@ -46,3 +46,6 @@ The prediction page estimates readmission risk and hospital stay duration from p
 
 ## Model evaluation
 The evaluation module reviews prediction performance using metrics and comparison results.
+
+## Model training
+The training module fits the project's prediction models using the prepared dataset.
