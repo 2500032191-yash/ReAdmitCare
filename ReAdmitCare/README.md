@@ -16,3 +16,6 @@ From the ReAdmitCare project folder, activate the virtual environment and start 
 
     .\.venv\Scripts\Activate.ps1
     python app.py
+
+## Exploratory data analysis (EDA)
+The EDA module explores the dataset and creates charts to help examine readmission patterns and patient attributes.
